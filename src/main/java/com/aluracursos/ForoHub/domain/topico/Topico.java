@@ -2,7 +2,6 @@ package com.aluracursos.ForoHub.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,26 +13,26 @@ public class Topico {
     private Long Id;
     @Column (unique = true)
     private String titulo;
+    @Column (unique = true)
     private String mensaje;
     private LocalDateTime fechaCreacion;
     @Enumerated(EnumType.STRING)
     private Status status;
     @ManyToOne
     @JoinColumn(name = "autor_id")
-    private Autor autor;
+    private Usuario usuario;
     private String curso;
 
     public Topico() {
     }
 
-    public Topico(Long id, String titulo, String mensaje, LocalDateTime fechaCreacion, Status status, Autor autor, String curso) {
-        Id = id;
-        this.titulo = titulo;
-        this.mensaje = mensaje;
-        this.fechaCreacion = fechaCreacion;
-        this.status = status;
-        this.autor = autor;
-        this.curso = curso;
+    public Topico(DatosRegistroTopico datosRegistro) {
+        this.status = Status.ACTIVO;
+        this.titulo = datosRegistro.titulo();
+        this.mensaje = datosRegistro.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.usuario = usuario;
+        this.curso = datosRegistro.curso();
     }
 
     public Long getId() {
@@ -76,12 +75,12 @@ public class Topico {
         this.status = status;
     }
 
-    public Autor getAutor() {
-        return autor;
+    public Usuario getAutor() {
+        return usuario;
     }
 
-    public void setAutor(Autor autor) {
-        this.autor = autor;
+    public void setAutor(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getCurso() {
