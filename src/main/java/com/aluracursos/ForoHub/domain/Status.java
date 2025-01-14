@@ -1,4 +1,4 @@
-package com.aluracursos.ForoHub.model;
+package com.aluracursos.ForoHub.domain;
 
 public enum Status {
     ACTIVO,

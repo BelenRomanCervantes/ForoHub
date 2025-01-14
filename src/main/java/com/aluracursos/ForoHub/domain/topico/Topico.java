@@ -1,5 +1,7 @@
-package com.aluracursos.ForoHub.model;
+package com.aluracursos.ForoHub.domain.topico;
 
+import com.aluracursos.ForoHub.domain.Status;
+import com.aluracursos.ForoHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

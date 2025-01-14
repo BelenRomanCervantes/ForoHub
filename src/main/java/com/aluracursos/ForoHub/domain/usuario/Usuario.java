@@ -1,6 +1,7 @@
-package com.aluracursos.ForoHub.model;
+package com.aluracursos.ForoHub.domain.usuario;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 
 @Entity
 @Table(name = "usuarios")
@@ -17,11 +18,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nombre, String email, String password) {
-        Id = id;
-        this.nombre = nombre;
-        this.email = email;
-        this.password = password;
+    public Usuario(@Valid DatosRegistroUsuario datosRegistro) {
+        this.nombre = datosRegistro.nombre();
+        this.email = datosRegistro.email();
+        this.password = datosRegistro.password();
     }
 
     public Long getId() {

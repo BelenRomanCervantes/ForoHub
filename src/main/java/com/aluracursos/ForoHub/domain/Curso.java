@@ -1,4 +1,4 @@
-package com.aluracursos.ForoHub.model;
+package com.aluracursos.ForoHub.domain;
 
 import jakarta.persistence.*;
 
