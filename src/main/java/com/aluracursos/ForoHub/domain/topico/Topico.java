@@ -3,6 +3,7 @@ package com.aluracursos.ForoHub.domain.topico;
 import com.aluracursos.ForoHub.domain.Status;
 import com.aluracursos.ForoHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ public class Topico {
     @Enumerated(EnumType.STRING)
     private Status status;
     @ManyToOne
-    @JoinColumn(name = "autor_id")
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     private String curso;
 
@@ -33,7 +34,7 @@ public class Topico {
         this.titulo = datosRegistro.titulo();
         this.mensaje = datosRegistro.mensaje();
         this.fechaCreacion = LocalDateTime.now();
-        this.usuario = usuario;
+        this.usuario = datosRegistro.usuario();
         this.curso = datosRegistro.curso();
     }
 
@@ -77,11 +78,11 @@ public class Topico {
         this.status = status;
     }
 
-    public Usuario getAutor() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setAutor(Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -92,4 +93,20 @@ public class Topico {
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+    public void actualizarDatos(@Valid DatosActualizarTopico datosActualizarTopico) {
+        if (datosActualizarTopico.titulo() != null) {
+            this.titulo = datosActualizarTopico.titulo();
+        }
+        if (datosActualizarTopico.mensaje() != null) {
+            this.mensaje = datosActualizarTopico.mensaje();
+        }
+        if (datosActualizarTopico.usuario() != null) {
+            this.usuario = datosActualizarTopico.usuario();
+        }
+        if (datosActualizarTopico.curso() != null) {
+            this.curso = datosActualizarTopico.curso();
+        }
+    }
+
 }
