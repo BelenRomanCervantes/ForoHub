@@ -10,8 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/foro")
 public class TopicoController {
@@ -40,10 +38,10 @@ public class TopicoController {
     public ResponseEntity<DatosRespuestaTopico> buscarTopico(@PathVariable Long id) {
         var topicoEncontrado = topicoRepository.findById(id);
         if (topicoEncontrado.isPresent()){
-            Topico topico = new Topico();
-            var datosRespuestaTopico = new DatosRespuestaTopico(topico.getId(), topico.getTitulo(), topico.getMensaje(),
+            var topico = topicoEncontrado.get();
+            var datosRespuesta = new DatosRespuestaTopico(topico.getId(), topico.getTitulo(), topico.getMensaje(),
                     topico.getFechaCreacion(), topico.getUsuario().getNombre(), topico.getCurso());
-            return ResponseEntity.ok(datosRespuestaTopico);
+            return ResponseEntity.ok(datosRespuesta);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -55,10 +53,11 @@ public class TopicoController {
     public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
         var topicoEncontrado = topicoRepository.findById(datosActualizarTopico.id());
         if (topicoEncontrado.isPresent()){
-            Topico topico = new Topico();
+            var topico = topicoEncontrado.get();
             topico.actualizarDatos(datosActualizarTopico);
-            return ResponseEntity.ok(new DatosRespuestaTopico(topico.getId(), topico.getTitulo(), topico.getMensaje(),
-                    topico.getFechaCreacion(), topico.getUsuario().getNombre(), topico.getCurso()));
+             var datosRespuesta = new DatosRespuestaTopico(topico.getId(), topico.getTitulo(), topico.getMensaje(),
+                    topico.getFechaCreacion(), topico.getUsuario().getNombre(), topico.getCurso());
+             return ResponseEntity.ok(datosRespuesta);
         } else {
             return ResponseEntity.notFound().build();
         }
