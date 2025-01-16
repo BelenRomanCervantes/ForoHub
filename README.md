@@ -27,13 +27,26 @@ pueden colocar sus preguntas sobre determinados asuntos.
     * Usando MySQL Workbench, crear una base de datos de nombre `foro` o algo similar.
     * Configurar el archivo application.properties del proyecto según tus credenciales de MySQL:
     ```
-    spring.datasource.url=jdbc:mysql://localhost/<NOMBRE_DE_TU_BASE_DE_DATOS>
-    spring.datasource.username=<TU_USUARIO>
-    spring.datasource.password=<TU_PASSWORD>
+    spring.application.name=ForoHub
+    spring.datasource.url=jdbc:mysql://${DB_HOST}/foro
+    spring.datasource.username=${MYSQL_USER}
+    spring.datasource.password=${MYSQL_PASSWORD}
+    hibernate.dialect=org.hibernate.dialect.HSQLDialect
+   
+    spring.jpa.hibernate.ddl-auto=update
+   
+    api.security.secret=${JWT_SECRET:123456}
     ```
-3. Ejecutar la aplicación.
+3. Configurar las variables de entorno en tu computadora
+   ```
+   DB_HOST: <TU_HOST>
+   MYSQL_USER: <TU_USUARIO_DE_MYSQL>
+   MYSQL_PASSWORD: <TU_PASSWORD_DE_MYSQL>
+   JWT_SECRET: <TU_SECRET>
+   ```
+4. Ejecutar la aplicación.
    `./mvnw spring-boot:run`
-4. Explora las diferentes opciones del menú.
+5. Utiliza Postman o Insomnia para probar la publicación.
 
 ## 👩 Desarrollado por:
 [Belén Itzel Román Cervantes](https://github.com/BelenRomanCervantes)   
